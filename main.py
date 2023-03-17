@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
-time_m = '2023-03-16 17:05:00'
+time_m = '2023-03-19 09:00:00'
 
 chromeOptions = webdriver.ChromeOptions() 
 chromeOptions.add_argument("--no-sandbox") 
@@ -26,7 +26,7 @@ print('请扫码')
 time.sleep(10)
 
 browser.get('https://cart.jd.com/cart_index')
-time.sleep(5)
+time.sleep(3)
 
 
 while True:
@@ -36,10 +36,14 @@ while True:
 
     if now > time_m:
         while True:
+            if browser.find_element(By.CLASS_NAME, "jdcheckbox"):
+                browser.find_element(By.CLASS_NAME, "jdcheckbox").click()
+                break
+        time.sleep(0.3)
+        while True:
 
             try:
-                if browser.find_element(By.CLASS_NAME, "jdcheckbox"):
-                    browser.find_element(By.CLASS_NAME, "jdcheckbox").click()
+
                 if browser.find_element(By.LINK_TEXT,'去结算'):
                     browser.find_element(By.LINK_TEXT,'去结算').click()
                     print('结算提交成功')

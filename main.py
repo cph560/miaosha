@@ -42,10 +42,15 @@ while True:
         time.sleep(0.3)
         while True:
 
+            if browser.find_element(By.LINK_TEXT,'去结算'):
+                browser.find_element(By.LINK_TEXT,'去结算').click()
+                print('结算提交成功')
+                break
+            
+        while True:
             try:
-
-                if browser.find_element(By.LINK_TEXT,'去结算'):
-                    browser.find_element(By.LINK_TEXT,'去结算').click()
-                    print('结算提交成功')
+                if browser.find_element(By.LINK_TEXT,'结算'):
+                    browser.find_element(By.LINK_TEXT,'结算').click()
+                    print('提交成功')
             except:
                 pass

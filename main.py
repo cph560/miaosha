@@ -27,7 +27,7 @@ time.sleep(10)
 
 browser.get('https://cart.jd.com/cart_index')
 time.sleep(3)
-
+XPATH = '//*[@id="cart-body"]/div[2]/div[3]/div[1]/div/input'
 
 while True:
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
@@ -36,21 +36,40 @@ while True:
 
     if now > time_m:
         while True:
-            if browser.find_element(By.CLASS_NAME, "jdcheckbox"):
-                browser.find_element(By.CLASS_NAME, "jdcheckbox").click()
-                break
+            try:
+                nowb = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+                if browser.find_element(By.CLASS_NAME, "jdcheckbox") and browser.find_element(By.XPATH, XPATH).get_attribute("clstag")[-1] == str(0):
+                    
+                    
+                    nowa = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+                    print(nowa-nowb)
+                    browser.find_element(By.CLASS_NAME, "jdcheckbox").click()
+                
+                    break
+                    
+            except:
+                continue
         time.sleep(0.3)
         while True:
 
-            if browser.find_element(By.LINK_TEXT,'去结算'):
-                browser.find_element(By.LINK_TEXT,'去结算').click()
-                print('结算提交成功')
-                break
             
-        while True:
-            try:
-                if browser.find_element(By.LINK_TEXT,'结算'):
-                    browser.find_element(By.LINK_TEXT,'结算').click()
-                    print('提交成功')
+            try:    
+                if browser.find_element(By.LINK_TEXT,'去结算'):
+                    browser.find_element(By.LINK_TEXT,'去结算').click()
+                    print('结算提交成功')
+                      
             except:
                 pass
+
+            # if browser.find_element(By.LINK_TEXT,'去结算'):
+            #         browser.find_element(By.LINK_TEXT,'去结算').click()
+            #         print('结算提交成功')
+
+        while True: 
+            try:    
+                if browser.find_element(By.XPATH,'//*[@id="order-submit"]/b'):
+                    browser.find_element(By.XPATH,'//*[@id="order-submit"]/b').click()
+                    print('提交成功')    
+            except:
+                pass
+
